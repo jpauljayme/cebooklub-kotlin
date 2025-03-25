@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+
+<head>
+  <title>Cebooklub</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <!--  font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div th:replace="~{fragments/fragments :: header}">
+    </div>
+    <main class="current-read">
+      <h2>Book of the Month</h2>
+      <div class="current-read__img-card">
+        <img class="current-read__img-card--img" th:src="${currentBook.fullImageUrl}" alt="Book Cover"/>
+      </div>
+      <h3 class="current-read__title" th:text="${currentBook.metadata.title}"></h3>
+      <h4 class="current-read__author text-xs" th:text="${currentBook.metadata.author}"></h4>
+      <section class="current-read__metadata">
+        <div class="current-read__metadata--pageAndPubYear text-xs">
+          <span th:text="${currentBook.metadata.pages} + ' pages'"></span>
+          <span th:text="'First pub ' + ${currentBook.metadata.firstPublishedYear}" > </span>
+        </div>
+        <div class="current-read__metadata--tags text-xs">
+          <th:block th:each="tag: ${currentBook.metadata.tags}">
+            <span class="metadata--tags-tag" th:text="${tag}"></span>
+          </th:block>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

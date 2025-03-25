@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Lora';
+    src: url("/fonts/Lora-VariableFont_wght.ttf") format("truetype");
+    font-weight: 100 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url("/fonts/Poppins-Light.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+.text-xs{
+    font-size: .75rem;
+    line-height: 1rem;
+}
+.wrapper{
+    display: grid;
+    text-align: center;
+    grid-template-rows: min-content 1fr;
+    padding: 0 25px;
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav--menu{
+    width: 20px;
+    height: 100%;
+}
+
+.current-read__img-card--img{
+    width: 200px;
+    height: 100%;
+}
+
+.current-read__title{
+    font-family: 'Lora', sans-serif;
+}
+
+.current-read__author{
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+}
+
+.current-read__metadata{
+    display: flow;
+}
+.current-read__metadata--pageAndPubYear, .current-read__metadata--tags{
+    color: gray;
+    font-family: Poppins, sans-serif;
+}
+.current-read__metadata--tags {
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.metadata--tags-tag{
+    border: solid gray thin;
+    color: rgb(20 125 100);
+}
