@@ -1,13 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:hx="http://www.w3.org/1999/xhtml">
 <body>
   <header th:fragment="header">
     <nav class="nav">
-      <a><h1>CEBOOKLUB</h1></a>
-      <img class="nav--menu" src="/icons/menu.png" alt="menu">
+      <a hx-get=""
+         hx-target="#main-content"
+      >
+        <h1>CEBOOKLUB</h1>
+      </a>
+      <img class="nav--menu" src="/icons/menu.png" alt="menu" onclick="openNav()">
     </nav>
   </header>
 
+  <nav th:fragment="navOverlay" id="nav--overlay">
+    <span onclick="closeNav()">Close</span>
+    <ul class="nav--overlay__links">
+      <li><a
+             hx-get="/pastReads"
+             onclick="closeNav() "
+            >Past Reads
+        </a>
+      </li>
+      <li><a hx-get="aboutUs" onclick="closeNav()">About Us</a></li>
+    </ul>
+  </nav>
 
+
+  <div th:fragment="pastReads">
+    <h2>Past Reads</h2>
+    <div th:each="book : ${books}">
+      <div class="current-read__img-card">
+        <img class="current-read__img-card--img" th:src="${book.fullImageUrl}" alt="Book Cover"/>
+      </div>
+      <h2 th:text="${book.metadata.title}"></h2>
+      <h4 class="current-read__author text-xs" th:text="${book.metadata.author}"></h4>
+      <section class="current-read__metadata">
+        <div class="current-read__metadata--pageAndPubYear text-xs">
+          <span th:text="${book.metadata.pages} + ' pages'"></span>
+          <span th:text="'First pub ' + ${book.metadata.firstPublishedYear}" > </span>
+        </div>
+        <div class="current-read__metadata--tags text-xs">
+          <th:block th:each="tag: ${book.metadata.tags}">
+            <span class="metadata--tags-tag" th:text="${tag}"></span>
+          </th:block>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<div th:fragment="currentRead (currentBook)">
+  <h2>Book of the Month</h2>
+  <div class="current-read__img-card">
+    <img class="current-read__img-card--img" th:src="${currentBook.fullImageUrl}" alt="Book Cover"/>
+  </div>
+  <h3 class="current-read__title" th:text="${currentBook.metadata.title}"></h3>
+  <h4 class="current-read__author text-xs" th:text="${currentBook.metadata.author}"></h4>
+  <section class="current-read__metadata">
+    <div class="current-read__metadata--pageAndPubYear text-xs">
+      <span th:text="${currentBook.metadata.pages} + ' pages'"></span>
+      <span th:text="'First pub ' + ${currentBook.metadata.firstPublishedYear}" > </span>
+    </div>
+    <div class="current-read__metadata--tags text-xs">
+      <th:block th:each="tag: ${currentBook.metadata.tags}">
+        <span class="metadata--tags-tag" th:text="${tag}"></span>
+      </th:block>
+    </div>
+  </section>
+</div>
+
+<div th:fragment="aboutUs">
+  <div>
+    <h2>
+      Cebu's darling circle for int reads, warm faces, and a hunger for the secrets between the pages.
+    </h2>
+  </div>
+  <div>
+   <h3> Catch us on Reddit at https://www.reddit.com/r/Cebooklub/</h3>
+  </div>
+</div>
 </body>
 </html>

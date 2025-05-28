@@ -15,6 +15,16 @@
     font-family: sans-serif;
 }
 
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #F5F5DC;
+}
+
+li {
+    list-style: none;
+}
+
 .text-xs{
     font-size: .75rem;
     line-height: 1rem;
@@ -29,7 +39,7 @@
 .nav{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .nav--menu{
@@ -37,6 +47,39 @@
     height: 100%;
 }
 
+#nav--overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#nav--overlay.active{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.nav--overlay__links{
+    display: grid;
+    padding: 0;
+    margin: 0;
+    gap: 5px;
+}
+
+#main-content{
+    background-color: #FAF9F6;
+}
 .current-read__img-card--img{
     width: 200px;
     height: 100%;
@@ -52,14 +95,14 @@
 }
 
 .current-read__metadata{
-    display: flow;
+    display: grid;
+    gap: 5px;
 }
 .current-read__metadata--pageAndPubYear, .current-read__metadata--tags{
     color: gray;
     font-family: Poppins, sans-serif;
 }
 .current-read__metadata--tags {
-    padding: 2px;
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -67,4 +110,5 @@
 .metadata--tags-tag{
     border: solid gray thin;
     color: rgb(20 125 100);
+    padding: 3px;
 }
