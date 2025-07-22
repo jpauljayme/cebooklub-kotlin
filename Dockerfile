@@ -1,17 +1,14 @@
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+FROM gradle:8.6-jdk21 AS build
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY .mvn .mvn
-COPY mvnw .
-RUN ./mvnw dependency:go-offline -B
+# Copy gradle files first to leverage cache
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY gradlew .
+COPY gradle/ gradle/
 
-COPY src ./src
-
-RUN ./mvnw clean package -DskipTests
-
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
