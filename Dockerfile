@@ -3,7 +3,7 @@ FROM gradle:8.6-jdk21 AS build
 WORKDIR /app
 
 # Copy gradle files first to leverage cache
-COPY build.gradle.kts .
+COPY build.gradle .
 COPY gradlew .
 COPY gradle/ gradle/
 
