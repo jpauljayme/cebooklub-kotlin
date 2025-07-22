@@ -4,7 +4,6 @@ WORKDIR /app
 
 # Copy gradle files first to leverage cache
 COPY build.gradle.kts .
-COPY settings.gradle.kts .
 COPY gradlew .
 COPY gradle/ gradle/
 
