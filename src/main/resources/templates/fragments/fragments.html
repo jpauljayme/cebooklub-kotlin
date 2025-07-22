@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:hx="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:hx="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
   <header th:fragment="header">
     <nav class="nav">
@@ -17,15 +17,13 @@
     <ul class="nav--overlay__links">
       <li><a
              hx-get="/pastReads"
-             onclick="closeNav() "
+             onclick="closeNav()"
             >Past Reads
         </a>
       </li>
       <li><a hx-get="aboutUs" onclick="closeNav()">About Us</a></li>
     </ul>
   </nav>
-
-
   <div th:fragment="pastReads">
     <h2>Past Reads</h2>
     <div th:each="book : ${books}">

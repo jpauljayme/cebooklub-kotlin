@@ -1,3 +1,5 @@
+# This comment will become the configuration name in IntelliJ
+# <docker.imageName>my-custom-name</docker.imageName>
 FROM gradle:8.6-jdk21 AS build
 
 WORKDIR /app

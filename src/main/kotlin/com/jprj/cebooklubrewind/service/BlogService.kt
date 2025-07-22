@@ -8,8 +8,10 @@ import com.jprj.cebooklubrewind.model.Book
 import com.jprj.cebooklubrewind.model.BookMetadata
 import org.commonmark.parser.Parser
 import org.commonmark.renderer.html.HtmlRenderer
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.support.ResourcePatternResolver
 import org.springframework.stereotype.Service
 import java.nio.file.Files
 import java.time.LocalDate
@@ -19,6 +21,9 @@ import java.time.format.DateTimeFormatter
 class BlogService(
     @Value("\${cloudfront.url}") val cloudfrontUrl: String,
 ) {
+
+    @Autowired
+    private lateinit var resourcePatternResolver: ResourcePatternResolver
 
     private val parser = Parser.builder().build()
     private val renderer = HtmlRenderer.builder().build()
@@ -35,11 +40,18 @@ class BlogService(
     }
 
     fun list(): List<Book?> {
-        val resource = ClassPathResource("markdown/")
-        return resource.file.listFiles()?.map { file ->
-            val content = Files.readString(file.toPath())
-            parseMarkdown(content, file.nameWithoutExtension)
-        } ?: emptyList()
+        return try {
+            val resources = resourcePatternResolver.getResources("classpath:markdown/*.md")
+
+            resources.map { resource ->
+                resource.inputStream.use { inputStream ->
+                    val content = inputStream.bufferedReader().use { it.readText() }
+                    parseMarkdown(content, resource.filename?.removeSuffix(".md") ?: "")
+                }
+            }.toList()
+        }catch (e: Exception){
+            return emptyList()
+        }
     }
 
     fun getBook(filename: String): Book? {
